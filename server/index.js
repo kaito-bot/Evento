@@ -5,6 +5,7 @@ const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const authRoute = require("./Routes/AuthRoute");
+const eventRouter = require("./Routes/EventRoute");
 const { MONGO_URL, PORT } = process.env;
 const { MongoClient } = require("mongodb");
 
@@ -44,3 +45,4 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 app.use("/", authRoute);
+app.use("/events", eventRouter);
