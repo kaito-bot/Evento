@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import NavigationBar from "../components/navigation-bar.component";
-import SideDrawer from "../components/side-drawer.component";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Events from "../components/events.component";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,55 +37,58 @@ const Dashboard = () => {
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
+
   const Logout = () => {
     removeCookie("token");
     navigate("/signup");
   };
+
   return (
     <>
-      <div className="dashboardPage">
+      <div>
         <NavigationBar logout={Logout} />
-        <Grid container spacing={2}>
-          <Grid item xs={2}>
-            <Box>
-              <SideDrawer />
+
+        <Grid container direction="row" sx={{ marginTop: "15vh" }}>
+          <Grid id="filters" item sm={2}>
+            <Box sx={{ height: "100%", position: "fixed" }}>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                justifyContent="space-around"
+              >
+                <Grid item>
+                  <TextField
+                    id="standard-basic"
+                    label="Location"
+                    variant="standard"
+                  />
+                  <Box sx={{ marginTop: 5 }}>
+                    <Button fullWidth variant="text">
+                      Apply
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
             </Box>
           </Grid>
-          <Grid item xs={10}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                p: 0,
-
-                bgcolor: "pink",
-                borderRadius: 1,
-                flexGrow: 1,
-                height: "100vh",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  p: 10,
-                  mt: 10,
-                  bgcolor: "red",
-                  borderRadius: 1,
-                  width: "80%",
-                  height: 400,
-                }}
-              >
-                <Events />
-              </Box>
-            </Box>
+          <Grid id="event-container" item sm={10}>
+            <Card>
+              <CardContent>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="center"
+                  spacing={5}
+                >
+                  <Events />
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </div>
+
       <ToastContainer />
     </>
   );

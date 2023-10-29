@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import EventCard from "./event-card.component";
 import { Box } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export const Events = () => {
   const [{ loading, events }, setEventManagerState] = useState({
@@ -28,27 +29,17 @@ export const Events = () => {
   }, [events]);
   console.log(events);
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center", // Horizontally center the content
-        alignItems: "center",
-        mt: 10,
-        bgcolor: "red",
-        borderRadius: 1,
-        width: "100%",
-        height: 300,
-        overflow: "auto",
-      }}
-      className="event-container"
-    >
+    <>
       {events && events.length > 0 ? (
-        events.map((event) => <EventCard event={event} key={event._id} />)
+        events.map((event) => (
+          <Grid item>
+            <EventCard event={event} key={event._id} />
+          </Grid>
+        ))
       ) : (
         <p>loading...</p>
       )}
-    </Box>
+    </>
   );
 };
 
