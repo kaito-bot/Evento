@@ -15,10 +15,8 @@ const NavigationBar = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Evento
           </Typography>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Dashboard</Button>
+          <Button color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </Box>

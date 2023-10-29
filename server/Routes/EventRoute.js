@@ -1,12 +1,12 @@
 const {
   CreateEvent,
   GetAllEvents,
-  GetAllEventsByDate,
+  GetAllEventsByFilter,
 } = require("../Controllers/EventController");
 
 const router = require("express").Router();
 
 router.post("/createEvent", CreateEvent);
 router.get("", GetAllEvents);
-router.get("/eventsdate", GetAllEventsByDate);
+router.get("/eventsbyfilter", GetAllEventsByFilter);
 module.exports = router;

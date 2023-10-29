@@ -40,7 +40,7 @@ module.exports.CreateEvent = async (req, res, next) => {
 module.exports.GetAllEvents = async (req, res, next) => {
   try {
     // fetch all events sorting by the date on which it is created
-    const allEvents = await Events.aggregate([{ $sort: { createdAt: 1 } }]);
+    const allEvents = await Events.aggregate([{ $sort: { createdAt: -1 } }]);
 
     res.status(201).json({
       message: "Events fetched successfully",
@@ -52,26 +52,43 @@ module.exports.GetAllEvents = async (req, res, next) => {
   }
 };
 
-module.exports.GetAllEventsByDate = async (req, res, next) => {
+module.exports.GetAllEventsByFilter = async (req, res, next) => {
   try {
-    const { searchDate } = req.body;
-    // fetch all events that has date as searchDate
-    let eventsByDate = await Events.find({
-      date: searchDate,
-    });
-    console.log(eventsByDate);
-    if (eventsByDate == []) {
-      return res.json({
-        message: `No event found for the date: ${searchDate}`,
-      });
+    const { date, category, location } = req.query;
+
+    // Create an empty filter object
+    const filter = {};
+
+    // Check if date is provided and add it to the filter
+    if (date) {
+      filter.date = date;
     }
 
-    res.status(201).json({
-      message: "Events by date fetched successfully",
+    // Check if category is provided and add it to the filter
+    if (category) {
+      filter.category = category;
+    }
+
+    // Check if location is provided and add it to the filter
+    if (location) {
+      filter.location = location;
+    }
+    console.log(filter);
+    // Use the filter object to find events
+    let eventsByFilter = await Events.find(filter);
+
+    console.log(eventsByFilter);
+
+    res.status(200).json({
+      message: "Events by filter fetched successfully",
       success: true,
-      eventsByDate,
+      eventsByFilter,
     });
   } catch (error) {
     console.error(error);
+    res.status(500).json({
+      message: "Error fetching events by filter",
+      success: false,
+    });
   }
 };
