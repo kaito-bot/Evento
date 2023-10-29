@@ -7,6 +7,7 @@ import NavigationBar from "../components/navigation-bar.component";
 import SideDrawer from "../components/side-drawer.component";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Events from "../components/events.component";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -27,13 +28,11 @@ const Dashboard = () => {
       setUsername(user);
 
       return status
-        ? toast(`Hello ${username}`, {
-            position: "top-right",
-          })
+        ? console.log("hi")
         : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
-  }, [cookies, navigate, removeCookie, username]);
+  }, [cookies, navigate, removeCookie]);
   const Logout = () => {
     removeCookie("token");
     navigate("/signup");
@@ -53,7 +52,7 @@ const Dashboard = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "center", // Horizontally center the content
+                justifyContent: "center",
                 alignItems: "center",
                 p: 0,
 
@@ -67,16 +66,18 @@ const Dashboard = () => {
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "center", // Horizontally center the content
+                  justifyContent: "center",
                   alignItems: "center",
-                  p: 1,
+                  p: 10,
                   mt: 10,
-
                   bgcolor: "red",
                   borderRadius: 1,
                   width: "80%",
+                  height: 400,
                 }}
-              ></Box>
+              >
+                <Events />
+              </Box>
             </Box>
           </Grid>
         </Grid>
