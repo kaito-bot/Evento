@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import { useNavigate } from "react-router-dom";
 const NavigationBar = (props) => {
+  const { logout } = props;
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -15,8 +17,12 @@ const NavigationBar = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Evento
           </Typography>
-          <Button color="inherit">Dashboard</Button>
-          <Button color="inherit">Logout</Button>
+          <Button color="inherit" onClick={() => navigate("/")}>
+            Dashboard
+          </Button>
+          <Button color="inherit" onClick={logout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

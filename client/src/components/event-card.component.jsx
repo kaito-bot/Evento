@@ -4,12 +4,14 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Typography from "@mui/material/Typography";
+import { Container } from "@mui/material";
+import { Button } from "@mui/material";
 
 export default function EventCard(props) {
-  const { title, description, category, location, startDate, imageUrl } =
+  const { title, description, category, location, startDate, imageUrl, time } =
     props.event;
   return (
-    <Card orientation="horizontal" variant="outlined" sx={{ width: 500 }}>
+    <Card orientation="horizontal" variant="outlined" sx={{ width: 600 }}>
       <CardOverflow>
         <AspectRatio ratio="1" sx={{ width: 200 }}>
           <img
@@ -21,10 +23,21 @@ export default function EventCard(props) {
         </AspectRatio>
       </CardOverflow>
       <CardContent>
-        <Typography fontWeight="md" textColor="success.plainColor">
+        <Typography
+          fontSize="1.2rem"
+          fontWeight="bold"
+          textColor="success.plainColor"
+        >
           {title}
         </Typography>
-        <Typography level="body-sm">California, USA</Typography>
+        <Typography level="body-sm" fontWeight="medium" fontFamily="Segoe UI">
+          {description}
+        </Typography>
+        <Typography level="body-sm">Location: {location}</Typography>
+        <Typography level="body-sm">Time: {time}</Typography>
+        <Button sx={{ mt: 2 }} variant="outlined" href="">
+          RSVP Now
+        </Button>
       </CardContent>
       <CardOverflow
         variant="soft"
@@ -46,22 +59,3 @@ export default function EventCard(props) {
     </Card>
   );
 }
-
-// export const EventCard = (props) => {
-//   const { title, description, category, location, startDate, imageUrl } =
-//     props.event;
-//   return (
-//     <div className="event">
-//       <div className="event-card">
-//         <img src={imageUrl} alt="event" className={"images"} />
-//         <div className="event-details">
-//           <p className="title">{title}</p>
-//           <p className="description">{description}...</p>
-//           <p>#{category}</p>
-//           <p>{location}</p>
-//           <p className="event-date">{new Date(startDate).toDateString()}</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };

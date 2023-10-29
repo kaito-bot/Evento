@@ -15,7 +15,9 @@ const FilteredEvents = (props) => {
           </Grid>
         ))
       ) : (
-        <p>No Events Found</p>
+        <p>
+          <h4>No Events Found</h4>
+        </p>
       )}
     </>
   );
