@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import NavigationBar from "../components/navigation-bar.component";
+import SideDrawer from "../components/side-drawer.component";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const [username, setUsername] = useState("");
+
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
@@ -20,26 +25,61 @@ const Dashboard = () => {
       );
       const { status, user } = data;
       setUsername(user);
+
       return status
-        ? toast(`Hello ${user}`, {
+        ? toast(`Hello ${username}`, {
             position: "top-right",
           })
         : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, navigate, removeCookie, username]);
   const Logout = () => {
     removeCookie("token");
     navigate("/signup");
   };
   return (
     <>
-      <div className="home_page">
-        <h4>
-          {" "}
-          Welcome <span>{username}</span>
-        </h4>
-        <button onClick={Logout}>LOGOUT</button>
+      <div className="dashboardPage">
+        <NavigationBar logout={Logout} />
+        <Grid container spacing={2}>
+          <Grid item xs={2}>
+            <Box>
+              <SideDrawer />
+            </Box>
+          </Grid>
+          <Grid item xs={10}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center", // Horizontally center the content
+                alignItems: "center",
+                p: 0,
+
+                bgcolor: "pink",
+                borderRadius: 1,
+                flexGrow: 1,
+                height: "100vh",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center", // Horizontally center the content
+                  alignItems: "center",
+                  p: 1,
+                  mt: 10,
+
+                  bgcolor: "red",
+                  borderRadius: 1,
+                  width: "80%",
+                }}
+              ></Box>
+            </Box>
+          </Grid>
+        </Grid>
       </div>
       <ToastContainer />
     </>
