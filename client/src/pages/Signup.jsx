@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-
+import TextField from "@mui/material/TextField";
+import { Grid } from "@mui/material";
+import Button from "@mui/material/Button";
 const Signup = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
@@ -59,46 +61,65 @@ const Signup = () => {
   };
 
   return (
-    <div className="form_container">
-      <h2>Signup Account</h2>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{ m: 1, width: "100%", height: "100%" }}
+    >
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            placeholder="Enter your username"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-        <span>
-          Already have an account? <Link to={"/login"}>Login</Link>
-        </span>
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ m: 1, width: 500, height: 500 }}
+          spacing={2}
+        >
+          <Grid item>
+            <h2>Signup Account</h2>
+          </Grid>
+          <Grid item>
+            <TextField
+              type="email"
+              name="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              type="text"
+              name="username"
+              value={username}
+              placeholder="Enter your username"
+              onChange={handleOnChange}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={handleOnChange}
+            />
+          </Grid>
+          <Grid item>
+            <Button sx={{ mt: 2 }} variant="outlined" type="submit">
+              Submit
+            </Button>
+          </Grid>
+          <span>
+            Already have an account? <Link to={"/login"}>Login</Link>
+          </span>
+        </Grid>
       </form>
       <ToastContainer />
-    </div>
+    </Grid>
   );
 };
 

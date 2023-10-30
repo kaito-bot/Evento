@@ -54,7 +54,7 @@ export default function EventCard(props) {
           borderColor: "divider",
         }}
       >
-        Ticket
+        Get your Ticket
       </CardOverflow>
     </Card>
   );
